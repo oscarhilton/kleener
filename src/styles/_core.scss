@@ -1,0 +1,17 @@
+#root {
+  transition: opacity 1s ease;
+}
+
+a[href],
+button {
+  touch-action: manipulation;
+}
+
+%noSelect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

@@ -1,0 +1,33 @@
+$ip: 375px;
+$phablet: 600px;
+$sm: 768px;
+$md: 992px;
+$lg: 1160px;
+
+@mixin breakpoint($size) {
+  @media (min-width: $size) {
+    @content;
+  }
+}
+
+@mixin showAtSm($display: block) {
+  display: none;
+
+  @include breakpoint($sm) {
+    display: $display;
+  }
+}
+
+@mixin showAtMd($display: block) {
+  display: none;
+
+  @include breakpoint($md) {
+    display: $display;
+  }
+}
+
+@mixin showUntilSm() {
+  @include breakpoint($sm) {
+    display: none;
+  }
+}

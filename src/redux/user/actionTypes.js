@@ -1,0 +1,3 @@
+export const SIGN_IN_REQUEST = "USER/SIGN_IN_REQUEST";
+export const SIGN_IN_SUCCESS = "USER/SIGN_IN_SUCCESS";
+export const SIGN_IN_FAIL = "USER/SIGN_IN_FAIL";

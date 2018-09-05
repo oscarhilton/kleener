@@ -1,0 +1,40 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "standard",
+    "standard-react",
+    "react-app"
+  ],
+  "plugins": [
+    "babel",
+    "jsx-a11y",
+    "react",
+    "promise"
+  ],
+  "env": {
+    "browser" : true
+  },
+  "globals": {
+    "__DEV__"      : false,
+    "__TEST__"     : false,
+    "__PROD__"     : false,
+    "__COVERAGE__" : false,
+    "__API__" : false,
+    "DEPLOY_ENV": false
+  },
+  "rules": {
+    "key-spacing"          : 0,
+    "jsx-quotes"           : [2, "prefer-double"],
+    "quotes"               : [2, "double"],
+    "max-len"              : [2, 120, 2],
+    "object-curly-spacing" : [2, "always"],
+    "semi": [2, "always"],
+    "space-before-function-paren": ["error", "never"],
+    "comma-dangle": [2, "always-multiline"],
+    "react/prop-types": 1,
+    "no-class-assign": 0, // Redux form decorates by assignment
+    "jsx-a11y/href-no-hash": "off",
+    "no-return-assign": "off",
+    "jsx-a11y/anchor-is-valid": ["warn", { "aspects": ["invalidHref"] }]
+  }
+}
