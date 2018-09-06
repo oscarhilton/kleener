@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import Page from "layouts/Page";
-import LandingHeader from "./LandingHeader";
 import PropTypes from "prop-types";
+import { Layout, Button, List, Checkbox, Avatar, Dropdown, Icon } from "antd";
+
+const { Header, Content, Menu, Footer, Sider } = Layout;
 
 export class Landing extends Component {
   constructor() {
@@ -29,16 +31,36 @@ export class Landing extends Component {
     const { user } = this.props;
     return (
       <Page pageClass="Landing" title="M5 Monitor">
-        <div className="Landing__container container">
-          <LandingHeader />
-          {!user ? (
-            <button onClick={this.handleSignInUser} >Sign in</button>
-          ) : (<div>
-            <ul>
-              {this.props.sections.map(section => <li key={section.id} >{section.name}</li>)}
-            </ul>
-            <button onClick={this.handleButton} >Click me</button></div>)}
-        </div>
+        <Layout>
+          <Header />
+          <Content className="container">
+            <div style={{ background: "white", margin: "10px" }}>
+              {!user ? (
+                <button onClick={this.handleSignInUser}>Sign in</button>
+              ) : (
+                <div>
+                  <Button type="primary" onClick={this.handleButton} shape="circle" size="large" icon="plus" />
+                  {this.props.sections.length && (
+                    <List
+                      size="large"
+                      bordered
+                      dataSource={this.props.sections}
+                      renderItem={item => (
+                        <List.Item key={item.id}>
+                          <List.Item.Meta title={item.name} description={`Witnessed by ${user.firstName}`} />
+                          <div>
+                            <Avatar shape="square" src={user.picture} />
+                            <Checkbox onChange={() => {}} />
+                          </div>
+                        </List.Item>
+                      )}
+                    />
+                  )}
+                </div>
+              )}
+            </div>
+          </Content>
+        </Layout>
       </Page>
     );
   }

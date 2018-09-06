@@ -65,8 +65,7 @@ module.exports = {
     // This is the URL that app is served from. We use "/" in development.
     publicPath: publicPath,
     // Point sourcemap entries to original disk location (format as URL on Windows)
-    devtoolModuleFilenameTemplate: info =>
-      path.resolve(info.absoluteResourcePath).replace(/\\/g, "/"),
+    devtoolModuleFilenameTemplate: info => path.resolve(info.absoluteResourcePath).replace(/\\/g, "/"),
   },
   resolve: {
     // This allows you to set a fallback for where Webpack should look for modules.
@@ -86,19 +85,21 @@ module.exports = {
     // for React Native Web.
     extensions: [".web.js", ".js", ".json", ".web.jsx", ".jsx"],
     alias: {
-
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       "react-native": "react-native-web",
-      "TweenLite": path.resolve("node_modules", "gsap/src/uncompressed/TweenLite.js"),
-      "TweenMax": path.resolve("node_modules", "gsap/src/uncompressed/TweenMax.js"),
-      "TimelineLite": path.resolve("node_modules", "gsap/src/uncompressed/TimelineLite.js"),
-      "TimelineMax": path.resolve("node_modules", "gsap/src/uncompressed/TimelineMax.js"),
-      "EasePack": path.resolve("node_modules", "gsap/src/uncompressed/easing/EasePack.js"),
-      "ScrollToPlugin": path.resolve("node_modules", "gsap/src/uncompressed/plugins/ScrollToPlugin"),
-      "ScrollMagic": path.resolve("node_modules", "scrollmagic/scrollmagic/uncompressed/ScrollMagic.js"),
+      TweenLite: path.resolve("node_modules", "gsap/src/uncompressed/TweenLite.js"),
+      TweenMax: path.resolve("node_modules", "gsap/src/uncompressed/TweenMax.js"),
+      TimelineLite: path.resolve("node_modules", "gsap/src/uncompressed/TimelineLite.js"),
+      TimelineMax: path.resolve("node_modules", "gsap/src/uncompressed/TimelineMax.js"),
+      EasePack: path.resolve("node_modules", "gsap/src/uncompressed/easing/EasePack.js"),
+      ScrollToPlugin: path.resolve("node_modules", "gsap/src/uncompressed/plugins/ScrollToPlugin"),
+      ScrollMagic: path.resolve("node_modules", "scrollmagic/scrollmagic/uncompressed/ScrollMagic.js"),
       "animation.gsap": path.resolve("node_modules", "scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js"),
-      "debug.addIndicators": path.resolve("node_modules", "scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js"),
+      "debug.addIndicators": path.resolve(
+        "node_modules",
+        "scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js"
+      ),
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).
@@ -271,9 +272,7 @@ module.exports = {
     // if (process.env.NODE_ENV === 'development') { ... }. See `./env.js`.
     new webpack.DefinePlugin(env.stringified),
     new webpack.DefinePlugin({
-      DEPLOY_ENV: process.env.DEPLOY_ENV
-        ? JSON.stringify(process.env.DEPLOY_ENV)
-        : null,
+      DEPLOY_ENV: process.env.DEPLOY_ENV ? JSON.stringify(process.env.DEPLOY_ENV) : null,
     }),
 
     // This is necessary to emit hot updates (currently CSS only):
@@ -307,5 +306,4 @@ module.exports = {
   // Turn off performance hints during development because we don't do any
   // splitting or minification in interest of speed. These warnings become
   // cumbersome.
-
 };
