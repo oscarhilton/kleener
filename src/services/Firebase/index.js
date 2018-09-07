@@ -21,7 +21,7 @@ export const init = () => {
 // retrieve from firebase
 // return promise object
 export const getSectionsDB = () => {
-  return database.ref("/").once("value");
+  return database.ref("/sections").once("value");
 };
 
 // export const getLiveSections = () => {
@@ -30,28 +30,28 @@ export const getSectionsDB = () => {
 
 // get specified section
 export const getTodoDB = sectionId => {
-  return database.ref(`/${sectionId}`).once("value");
+  return database.ref(`/sections/${sectionId}`).once("value");
 };
 
 // add new section
 export const addSection = (name, author) => {
-  let key = database.ref("/").push().key;
+  let key = database.ref("/sections/").push().key;
   let model = sectionModel(key, name, firebase.database.ServerValue.TIMESTAMP, author);
-  return database.ref("/" + key).set(model);
+  return database.ref("/sections/" + key).set(model);
 };
 
 // add new todo item into specified section
 export const addTodoItem = (id, name) => {
   return new Promise((resolve, reject) => {
     database
-      .ref(`/${id}`)
+      .ref(`/sections/${id}`)
       .once("value")
       .then(todo => {
         let todos = todo.val().todos || [];
         let key = database.ref(`/${id}`).push().key;
         todos.push(todoModel(key, name, firebase.database.ServerValue.TIMESTAMP));
         database
-          .ref(`/${id}/todos`)
+          .ref(`/sections/${id}/todos`)
           .set(todos)
           .then(res => {
             resolve(res);

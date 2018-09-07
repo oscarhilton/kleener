@@ -9,13 +9,14 @@ export const initialState = fromJS({
 
 const handleSignInSuccess = (state, action) => {
   const { user, token } = action.payload;
-  const { email, firstName, socialId, lastName, picture } = user;
+  const { email, firstName, socialId, lastName, picture, stars } = user;
   return state.set("token", token).set("profile", {
     id: socialId,
     email,
     firstName,
     lastName,
     picture,
+    stars,
   });
 };
 

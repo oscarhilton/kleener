@@ -47,7 +47,7 @@ export const makeStore = () => {
       store,
       {
         keyPrefix: "v10-",
-        whitelist: ["talentCards", "progress"],
+        whitelist: ["talentCards", "progress", "user"],
         transforms: [immutableTransform()],
       },
       () => resolve(store)

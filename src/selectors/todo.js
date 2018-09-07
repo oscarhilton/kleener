@@ -1,1 +1,1 @@
-export const sectionsSelector = state => state.todo.get("sections").reverse();
+export const sectionsSelector = state => state.todo.get("sections").reverse() || [];

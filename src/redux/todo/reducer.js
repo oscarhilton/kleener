@@ -7,12 +7,13 @@ export const initialState = fromJS({
 });
 
 const handleLoadSections = (state, action) => {
-  console.log(action.payload, "payload");
-  const array = Object.keys(action.payload).map(section => ({
-    id: action.payload[section].id,
-    name: action.payload[section].name,
-    timestamp: action.payload[section].timestamp,
-  }));
+  console.log(action.payload, "loaded sections");
+  const array =
+    Object.keys(action.payload).map(section => ({
+      id: action.payload[section].id,
+      name: action.payload[section].name,
+      timestamp: action.payload[section].timestamp,
+    })) || [];
   return state.set("sections", array);
 };
 
