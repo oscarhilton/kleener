@@ -4,7 +4,7 @@ import Landing from "./Landing";
 export const createRoutes = store => {
   return [
     {
-      path: "/",
+      path: "/**",
       component: LandingLayout,
       indexRoute: Landing,
     },

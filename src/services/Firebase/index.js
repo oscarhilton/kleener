@@ -76,3 +76,7 @@ export const getUserByFacebookID = id => {
     .equalTo(id)
     .once("value");
 };
+
+export const getUserDB = () => {
+  return database.ref("/user").once("value");
+};

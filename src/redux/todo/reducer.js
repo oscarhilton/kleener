@@ -4,6 +4,10 @@ import * as actionTypes from "./actionTypes";
 
 export const initialState = fromJS({
   sections: [],
+  todos: {
+    list: [],
+    id: null,
+  },
 });
 
 const handleLoadSections = (state, action) => {
@@ -12,6 +16,7 @@ const handleLoadSections = (state, action) => {
     Object.keys(action.payload).map(section => ({
       id: action.payload[section].id,
       name: action.payload[section].name,
+      todos: action.payload[section].todos,
       timestamp: action.payload[section].timestamp,
     })) || [];
   return state.set("sections", array);

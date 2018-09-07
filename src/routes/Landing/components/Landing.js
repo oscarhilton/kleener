@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import Page from "layouts/Page";
 import PropTypes from "prop-types";
-import { Layout, Button, List, Checkbox, Avatar, Dropdown, Icon, Switch, Popover, Menu, Input, Form } from "antd";
+import { Layout, Button, List, Checkbox, Avatar, Switch, Popover, Menu, Badge } from "antd";
 import SimpleInput from "./SimpleInput";
+import { browserHistory } from "react-router";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -12,6 +13,8 @@ export class Landing extends Component {
 
     this.handleNewSection = this.handleNewSection.bind(this);
     this.handleSignInUser = this.handleSignInUser.bind(this);
+    this.handleSectionSelection = this.handleSectionSelection.bind(this);
+    this.handleNewTodo = this.handleNewTodo.bind(this);
   }
 
   componentDidMount() {
@@ -30,6 +33,14 @@ export class Landing extends Component {
     this.props.createSection(title, this.props.user.firstName);
   }
 
+  handleSectionSelection(id) {
+    return () => browserHistory.push(id);
+  }
+
+  handleNewTodo(id, name) {
+    console.log(id, name);
+  }
+
   render() {
     console.log(this.props);
     const { user } = this.props;
@@ -43,6 +54,7 @@ export class Landing extends Component {
               onChange={this.handleSignInUser}
               defaultChecked={!!user}
             />
+            <Button type="primary" onClick={() => {}} shape="circle" size="large" icon="plus" />
           </Header>
           <Layout style={{ minHeight: "100vh" }}>
             <Sider theme="light">
@@ -51,7 +63,10 @@ export class Landing extends Component {
                   <Menu theme="light" mode="inline">
                     <Menu.SubMenu title="Task sections">
                       {this.props.sections.map(section => (
-                        <Menu.Item key={section.id}>{section.name}</Menu.Item>
+                        <Menu.Item key={section.id} onClick={this.handleSectionSelection(section.id)}>
+                          {section.name}
+                          <Badge count={section.todos ? section.todos.length : 0} />
+                        </Menu.Item>
                       ))}
                       <SimpleInput placeholder="Add new section" handleSubmit={this.handleNewSection} />
                     </Menu.SubMenu>
@@ -65,15 +80,14 @@ export class Landing extends Component {
                   <div>You are signed out of your account</div>
                 ) : (
                   <div>
-                    <Button type="primary" onClick={() => {}} shape="circle" size="large" icon="plus" />
                     {this.props.sections.length && (
                       <List
                         size="large"
                         bordered
-                        dataSource={this.props.sections}
+                        dataSource={this.props.todos}
                         renderItem={item => (
                           <List.Item key={item.id}>
-                            <List.Item.Meta title={item.name} description={`Witnessed by ${user.firstName}`} />
+                            <List.Item.Meta title={"testing"} description={`Witnessed by ${user.firstName}`} />
                             <div>
                               <Popover content={<p>Completed by {user.firstName}</p>} trigger="hover">
                                 <Avatar shape="square" src={user.picture} />

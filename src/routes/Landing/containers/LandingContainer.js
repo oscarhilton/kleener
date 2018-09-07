@@ -18,6 +18,7 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
   homeContent: contentSelectors.contentPageSelectorFactory("home")(state),
   sections: todoSelectors.sectionsSelector(state),
+  todos: todoSelectors.todosSelector(state),
   user: userSelectors.userSelector(state),
 });
 
