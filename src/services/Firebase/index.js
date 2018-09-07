@@ -1,6 +1,7 @@
 import * as firebase from "firebase";
 import sectionModel from "services/Models/section";
 import todoModel from "services/Models/todo";
+import userModel from "services/Models/user";
 
 let database;
 
@@ -14,7 +15,7 @@ export const init = () => {
   };
   firebase.initializeApp(config);
 
-  return database = firebase.database();
+  return (database = firebase.database());
 };
 
 // retrieve from firebase
@@ -28,7 +29,7 @@ export const getSectionsDB = () => {
 // };
 
 // get specified section
-export const getTodoDB = (sectionId) => {
+export const getTodoDB = sectionId => {
   return database.ref(`/${sectionId}`).once("value");
 };
 
@@ -42,17 +43,36 @@ export const addSection = (name, author) => {
 // add new todo item into specified section
 export const addTodoItem = (id, name) => {
   return new Promise((resolve, reject) => {
-    database.ref(`/${id}`).once("value").then((todo) => {
-      let todos = todo.val().todos || [];
-      let key = database.ref(`/${id}`).push().key;
-      todos.push(todoModel(key, name, firebase.database.ServerValue.TIMESTAMP));
-      database.ref(`/${id}/todos`).set(todos)
-        .then(res => {
-          resolve(res);
-        })
-        .catch(error => {
-          reject(error);
-        });
-    });
+    database
+      .ref(`/${id}`)
+      .once("value")
+      .then(todo => {
+        let todos = todo.val().todos || [];
+        let key = database.ref(`/${id}`).push().key;
+        todos.push(todoModel(key, name, firebase.database.ServerValue.TIMESTAMP));
+        database
+          .ref(`/${id}/todos`)
+          .set(todos)
+          .then(res => {
+            resolve(res);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
   });
+};
+
+export const addNewUser = ({ socialId, firstName, lastName, picture, email }) => {
+  let key = database.ref("/user").push().key;
+  let model = userModel(key, socialId, firstName, lastName, picture, email, firebase.database.ServerValue.TIMESTAMP);
+  return database.ref("/user/" + key).set(model);
+};
+
+export const getUserByFacebookID = id => {
+  return database
+    .ref("/user")
+    .orderByChild("socialId")
+    .equalTo(id)
+    .once("value");
 };

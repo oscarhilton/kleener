@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Page from "layouts/Page";
 import PropTypes from "prop-types";
-import { Layout, Button, List, Checkbox, Avatar, Dropdown, Icon } from "antd";
+import { Layout, Button, List, Checkbox, Avatar, Dropdown, Icon, Switch } from "antd";
 
 const { Header, Content, Menu, Footer, Sider } = Layout;
 
@@ -17,8 +17,12 @@ export class Landing extends Component {
     this.props.loadSections();
   }
 
-  handleSignInUser() {
-    this.props.signInUser();
+  handleSignInUser(isLogin) {
+    if (isLogin) {
+      this.props.signInUser();
+    } else {
+      this.props.signOutUser();
+    }
   }
 
   handleButton() {
@@ -32,11 +36,13 @@ export class Landing extends Component {
     return (
       <Page pageClass="Landing" title="M5 Monitor">
         <Layout>
-          <Header />
+          <Header>
+            <Switch checkedChildren="logout" unCheckedChildren="login" onChange={this.handleSignInUser} />
+          </Header>
           <Content className="container">
             <div style={{ background: "white", margin: "10px" }}>
               {!user ? (
-                <button onClick={this.handleSignInUser}>Sign in</button>
+                <div>You are signed out of your account</div>
               ) : (
                 <div>
                   <Button type="primary" onClick={this.handleButton} shape="circle" size="large" icon="plus" />
@@ -71,6 +77,7 @@ Landing.propTypes = {
   loadSections: PropTypes.func.isRequired,
   createSection: PropTypes.func.isRequired,
   signInUser: PropTypes.func.isRequired,
+  signOutUser: PropTypes.func.isRequired,
   user: PropTypes.object,
 };
 

@@ -12,6 +12,7 @@ const mapDispatchToProps = dispatch => ({
   createSection: (name, author) => dispatch(todoActions.createSection(name, author)),
   loadSections: () => dispatch(todoActions.loadSections()),
   signInUser: () => dispatch(userActions.signInUser()),
+  signOutUser: () => dispatch(userActions.signOutUser()),
 });
 
 const mapStateToProps = state => ({
@@ -21,5 +22,8 @@ const mapStateToProps = state => ({
 });
 
 export default {
-  component: connect(mapStateToProps, mapDispatchToProps)(Landing),
+  component: connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Landing),
 };

@@ -22,12 +22,8 @@ export const makeStore = () => {
 
   const initialState = {};
   const sagaMiddleware = createSagaMiddleware();
-  const enhancers = [ autoRehydrate() ];
-  const middleware = [
-    routerMiddleware(history),
-    sagaMiddleware,
-    thunk,
-  ];
+  const enhancers = [autoRehydrate()];
+  const middleware = [routerMiddleware(history), sagaMiddleware, thunk];
 
   // if (process.env.NODE_ENV === "development") {
   const devToolsExtension = window.devToolsExtension;
@@ -42,11 +38,7 @@ export const makeStore = () => {
     ...enhancers
   );
 
-  const store = createStore(
-    rootReducer,
-    initialState,
-    composedEnhancers
-  );
+  const store = createStore(rootReducer, initialState, composedEnhancers);
 
   sagaMiddleware.run(rootSaga);
 
@@ -55,15 +47,11 @@ export const makeStore = () => {
       store,
       {
         keyPrefix: "v10-",
-        whitelist: [
-          "talentCards",
-          "progress",
-          "user",
-        ],
-        transforms: [
-          immutableTransform(),
-        ],
-      }, () => resolve(store));
+        whitelist: ["talentCards", "progress"],
+        transforms: [immutableTransform()],
+      },
+      () => resolve(store)
+    );
   });
 };
 

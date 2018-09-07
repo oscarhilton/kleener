@@ -1,7 +1,7 @@
 import { all } from "redux-saga/effects";
 import { watchContentRequest } from "sagas/contentSaga";
 import { watchCreateSectionRequest, watchLoadSectionsRequest } from "sagas/todoSaga";
-import { watchSignInRequest } from "sagas/userSaga";
+import { watchSignInRequest, watchAuthSuccess, watchSignOutUser } from "sagas/userSaga";
 
 export default function * rootSaga() {
   yield all([
@@ -9,5 +9,7 @@ export default function * rootSaga() {
     watchCreateSectionRequest(),
     watchLoadSectionsRequest(),
     watchSignInRequest(),
+    watchAuthSuccess(),
+    watchSignOutUser(),
   ]);
-};
+}
