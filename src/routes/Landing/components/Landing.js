@@ -144,7 +144,7 @@ export class Landing extends Component {
             </Content>
           </Layout>
           <Footer>
-            Made with ❤ by Oscar - <a href="/privacy-policy">Privacy Policy</a>
+            Made with ❤ by Oscar - <a onClick={() => browserHistory.push("/static/privacy-policy")}>Privacy Policy</a>
           </Footer>
         </Layout>
       </Page>

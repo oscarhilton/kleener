@@ -5,7 +5,7 @@ import PrivacyPolicy from "./PrivacyPolicy";
 export const createRoutes = store => {
   return [
     {
-      path: "/privacy-policy",
+      path: "/static/privacy-policy",
       component: LandingLayout,
       indexRoute: PrivacyPolicy,
     },
