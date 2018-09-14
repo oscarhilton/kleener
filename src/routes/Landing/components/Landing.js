@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Page from "layouts/Page";
 import PropTypes from "prop-types";
-import { Layout, Button, List, Checkbox, Avatar, Switch, Popover, Menu, Badge } from "antd";
+import { Layout, List, Checkbox, Avatar, Switch, Popover, Menu, Badge } from "antd";
 import SimpleInput from "./SimpleInput";
 import { browserHistory } from "react-router";
 
@@ -67,16 +67,16 @@ export class Landing extends Component {
               onChange={this.handleSignInUser}
               defaultChecked={!!user}
             />
-            <Button type="primary" onClick={() => {}} shape="circle" size="large" icon="plus" />
+            {/* <Button type="primary" onClick={() => {}} shape="circle" size="large" icon="plus" /> */}
           </Header>
           <Layout>
             <Sider theme="light">
               {!!user &&
                 this.props.sections.length && (
-                  <Menu theme="light" mode="inline" style={{ minHeight: "100vh" }}>
-                    <Menu.SubMenu title="Task sections">
-                      {this.props.sections.map(section => (
-                        <Menu.Item key={section.id} onClick={this.handleSectionSelection(section.id)}>
+                  <Menu theme="light" mode="inline" style={{ minHeight: "100vh" }} defaultOpenKeys={["sections"]}>
+                    <Menu.SubMenu key="sections" title="Task sections">
+                      {this.props.sections.map((section, key) => (
+                        <Menu.Item key={key} onClick={this.handleSectionSelection(section.id)}>
                           {section.name}
                           <Badge count={section.todos ? section.todos.filter(todo => !todo.completed).length : 0} />
                         </Menu.Item>
@@ -125,7 +125,7 @@ export class Landing extends Component {
                               <List.Item key={item.id}>
                                 <List.Item.Meta
                                   title={<del>{item.name}</del>}
-                                  description={`Witnessed by ${user.firstName}`}
+                                  // description={`Witnessed by ${user.firstName}`}
                                 />
                                 <div>
                                   <Popover content={<p>Completed by {item.completedBy.name}</p>} trigger="hover">
@@ -142,7 +142,7 @@ export class Landing extends Component {
               </div>
             </Content>
           </Layout>
-          <Footer>footer</Footer>
+          <Footer>Made with ❤ by Oscar</Footer>
         </Layout>
       </Page>
     );
