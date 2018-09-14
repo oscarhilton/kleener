@@ -13,12 +13,14 @@ const mapDispatchToProps = dispatch => ({
   loadSections: () => dispatch(todoActions.loadSections()),
   signInUser: () => dispatch(userActions.signInUser()),
   signOutUser: () => dispatch(userActions.signOutUser()),
+  addNewTodo: (id, name) => dispatch(todoActions.addNewTodo(id, name)),
+  completeTodo: (sectionId, todoId) => dispatch(todoActions.completeTodo(sectionId, todoId)),
 });
 
 const mapStateToProps = state => ({
   homeContent: contentSelectors.contentPageSelectorFactory("home")(state),
   sections: todoSelectors.sectionsSelector(state),
-  todos: todoSelectors.todosSelector(state),
+  todos: id => todoSelectors.todosSelector(state, id),
   user: userSelectors.userSelector(state),
 });
 

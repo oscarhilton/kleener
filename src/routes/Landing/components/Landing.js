@@ -15,6 +15,7 @@ export class Landing extends Component {
     this.handleSignInUser = this.handleSignInUser.bind(this);
     this.handleSectionSelection = this.handleSectionSelection.bind(this);
     this.handleNewTodo = this.handleNewTodo.bind(this);
+    this.handleCompleteTodo = this.handleCompleteTodo.bind(this);
   }
 
   componentDidMount() {
@@ -37,13 +38,25 @@ export class Landing extends Component {
     return () => browserHistory.push(id);
   }
 
-  handleNewTodo(id, name) {
-    console.log(id, name);
+  handleNewTodo(name) {
+    const { splat } = this.props.params;
+    if (splat.length > 0) {
+      this.props.addNewTodo(splat, name);
+    }
+  }
+
+  handleCompleteTodo(itemId) {
+    console.log("TOGGLE");
+    this.props.completeTodo(this.props.params.splat, itemId);
   }
 
   render() {
-    console.log(this.props);
     const { user } = this.props;
+    const { splat } = this.props.params;
+    const todosToList = this.props.todos(splat) || [];
+    const completedTodos = todosToList.filter(todo => !!todo.completed) || [];
+    const uncompletedTodos = todosToList.filter(todo => !todo.completed) || [];
+
     return (
       <Page pageClass="Landing" title="M5 Monitor">
         <Layout>
@@ -56,16 +69,16 @@ export class Landing extends Component {
             />
             <Button type="primary" onClick={() => {}} shape="circle" size="large" icon="plus" />
           </Header>
-          <Layout style={{ minHeight: "100vh" }}>
+          <Layout>
             <Sider theme="light">
               {!!user &&
                 this.props.sections.length && (
-                  <Menu theme="light" mode="inline">
+                  <Menu theme="light" mode="inline" style={{ minHeight: "100vh" }}>
                     <Menu.SubMenu title="Task sections">
                       {this.props.sections.map(section => (
                         <Menu.Item key={section.id} onClick={this.handleSectionSelection(section.id)}>
                           {section.name}
-                          <Badge count={section.todos ? section.todos.length : 0} />
+                          <Badge count={section.todos ? section.todos.filter(todo => !todo.completed).length : 0} />
                         </Menu.Item>
                       ))}
                       <SimpleInput placeholder="Add new section" handleSubmit={this.handleNewSection} />
@@ -80,24 +93,50 @@ export class Landing extends Component {
                   <div>You are signed out of your account</div>
                 ) : (
                   <div>
-                    {this.props.sections.length && (
-                      <List
-                        size="large"
-                        bordered
-                        dataSource={this.props.todos}
-                        renderItem={item => (
-                          <List.Item key={item.id}>
-                            <List.Item.Meta title={"testing"} description={`Witnessed by ${user.firstName}`} />
-                            <div>
-                              <Popover content={<p>Completed by {user.firstName}</p>} trigger="hover">
-                                <Avatar shape="square" src={user.picture} />
-                              </Popover>
-                              <Checkbox onChange={() => {}} />
-                            </div>
-                          </List.Item>
-                        )}
-                      />
+                    {splat.length > 0 && (
+                      <div>
+                        <h3>Add a new task</h3>
+                        <SimpleInput placeholder="Write a new task and press enter" handleSubmit={this.handleNewTodo} />
+                      </div>
                     )}
+                    {splat.length > 0 &&
+                      !!this.props.todos && (
+                        <div>
+                          <h3>Todo</h3>
+                          <List
+                            size="large"
+                            bordered
+                            dataSource={uncompletedTodos}
+                            renderItem={item => (
+                              <List.Item key={item.id}>
+                                <List.Item.Meta title={item.name} />
+                                <div>
+                                  <Checkbox onChange={e => this.handleCompleteTodo(item.id)} />
+                                </div>
+                              </List.Item>
+                            )}
+                          />
+                          <h3>Completed</h3>
+                          <List
+                            size="large"
+                            bordered
+                            dataSource={completedTodos}
+                            renderItem={item => (
+                              <List.Item key={item.id}>
+                                <List.Item.Meta
+                                  title={<del>{item.name}</del>}
+                                  description={`Witnessed by ${user.firstName}`}
+                                />
+                                <div>
+                                  <Popover content={<p>Completed by {item.completedBy.name}</p>} trigger="hover">
+                                    <Avatar shape="square" src={item.completedBy.photo} />
+                                  </Popover>
+                                </div>
+                              </List.Item>
+                            )}
+                          />
+                        </div>
+                      )}
                   </div>
                 )}
               </div>
@@ -117,6 +156,10 @@ Landing.propTypes = {
   signInUser: PropTypes.func.isRequired,
   signOutUser: PropTypes.func.isRequired,
   user: PropTypes.object,
+  params: PropTypes.object,
+  addNewTodo: PropTypes.func.isRequired,
+  todos: PropTypes.func.isRequired,
+  completeTodo: PropTypes.func.isRequired,
 };
 
 export default Landing;

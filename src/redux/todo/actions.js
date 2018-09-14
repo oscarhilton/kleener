@@ -27,3 +27,25 @@ export const createSectionSuccess = res => ({
 export const createSectionFail = e => ({
   type: actionTypes.ADD_SECTIONS_FAIL,
 });
+
+export const addNewTodo = (id, name) => ({
+  type: actionTypes.ADD_NEW_TODO_REQUEST,
+  payload: { id, name },
+});
+
+export const addNewTodoSuccess = () => ({
+  type: actionTypes.ADD_NEW_TODO_SUCCESS,
+});
+
+export const addNewTodoFail = e => ({
+  type: actionTypes.ADD_NEW_TODO_FAIL,
+  payload: e,
+});
+
+export const completeTodo = (sectionId, todoId) => ({
+  type: actionTypes.COMPLETE_TODO_REQUEST,
+  payload: {
+    sectionId,
+    todoId,
+  },
+});

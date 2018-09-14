@@ -4,10 +4,6 @@ import * as actionTypes from "./actionTypes";
 
 export const initialState = fromJS({
   sections: [],
-  todos: {
-    list: [],
-    id: null,
-  },
 });
 
 const handleLoadSections = (state, action) => {

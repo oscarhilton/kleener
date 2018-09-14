@@ -63,6 +63,32 @@ export const addTodoItem = (id, name) => {
   });
 };
 
+export const completeTodoItem = (sectionId, todoId) => {
+  const currentUser = firebase.auth().currentUser;
+  console.log(currentUser);
+  const { displayName, photoURL, uid } = currentUser.providerData[0];
+  return new Promise((resolve, reject) => {
+    database
+      .ref(`/sections/${sectionId}`)
+      .once("value")
+      .then(todo => {
+        let todos = todo.val().todos || [];
+        let index = todos.findIndex(obj => obj.id === todoId);
+        todos[index].completed = true;
+        todos[index].completedBy = {
+          name: displayName,
+          photo: photoURL,
+          uid,
+        };
+        database
+          .ref(`/sections/${sectionId}/todos`)
+          .set(todos)
+          .then(res => resolve(res))
+          .catch(e => reject(e));
+      });
+  });
+};
+
 export const addNewUser = ({ socialId, firstName, lastName, picture, email }) => {
   let key = database.ref("/user").push().key;
   let model = userModel(key, socialId, firstName, lastName, picture, email, firebase.database.ServerValue.TIMESTAMP);

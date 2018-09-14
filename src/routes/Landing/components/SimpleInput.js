@@ -16,6 +16,7 @@ export default class SimpleInput extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    this.setState({ input: "" });
     this.props.handleSubmit(this.state.input);
   }
 
