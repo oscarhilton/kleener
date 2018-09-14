@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { Layout, List, Checkbox, Avatar, Switch, Popover, Menu, Badge } from "antd";
 import SimpleInput from "./SimpleInput";
 import { browserHistory } from "react-router";
+// import { Link } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -142,7 +143,9 @@ export class Landing extends Component {
               </div>
             </Content>
           </Layout>
-          <Footer>Made with ❤ by Oscar</Footer>
+          <Footer>
+            Made with ❤ by Oscar - <a href="/privacy-policy">Privacy Policy</a>
+          </Footer>
         </Layout>
       </Page>
     );
