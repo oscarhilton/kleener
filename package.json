@@ -6,7 +6,7 @@
     "alphabet": "^1.0.0",
     "antd": "^3.9.1",
     "autoprefixer": "7.1.2",
-    "axios": "^0.16.2",
+    "axios": "^0.21.1",
     "babel-core": "^6.26.0",
     "babel-eslint": "6.1.2",
     "babel-jest": "^21.2.0",
