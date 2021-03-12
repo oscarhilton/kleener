@@ -57,7 +57,7 @@
     "rc-progress": "^2.2.2",
     "react": "^15.6.1",
     "react-collapsible": "^2.0.3",
-    "react-dev-utils": "^4.0.1",
+    "react-dev-utils": "^11.0.4",
     "react-dom": "^15.6.1",
     "react-id-swiper": "^1.4.0",
     "react-player": "^0.25.3",
