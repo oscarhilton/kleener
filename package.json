@@ -86,7 +86,7 @@
     "stylelint": "^8.1.1",
     "stylelint-webpack-plugin": "^0.9.0",
     "sw-precache-webpack-plugin": "0.11.4",
-    "swiper": "^4.0.0-beta.4",
+    "swiper": "^6.5.1",
     "url-loader": "0.5.9",
     "vivus": "^0.4.2",
     "webpack": "3.5.1",
